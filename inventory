@@ -7,3 +7,6 @@
 
 [file_servers]
 54.158.180.204 ansible_connect=ssh ansible_user=ubuntu
+
+[workstations]
+54.158.180.204 ansible_connect=ssh ansible_user=ubuntu
