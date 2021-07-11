@@ -1,3 +1,9 @@
-34.238.158.0 apache_package=apache2 php_package=libapache2-mod-php ansible_connect=ssh ansible_user=ubuntu
-52.90.227.74 apache_package=apache2 php_package=libapache2-mod-php ansible_connect=ssh ansible_user=ubuntu
-3.81.114.155 apache_package=httpd php_package=php ansible_connect=ssh ansible_user=centos
+[web_servers]
+44.194.210.63 ansible_connect=ssh ansible_user=ubuntu
+54.89.65.96 ansible_connect=ssh ansible_user=centos
+
+[db_servers]
+52.204.83.44 ansible_connect=ssh ansible_user=ubuntu
+
+[file_servers]
+54.158.180.204 ansible_connect=ssh ansible_user=ubuntu

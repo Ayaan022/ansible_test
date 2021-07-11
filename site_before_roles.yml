@@ -4,18 +4,18 @@
   become: true
   pre_tasks:
 
-  - name: install updates (CentOS)
+  - name: updated repository index (CentOS)
     tags: always
     yum:
-      update_only: yes
       update_cache: yes
+    changed_when: false
     when: ansible_distribution == "CentOS"
 
-  - name: install updates (Ubuntu)
+  - name: install repository index (Ubuntu)
     tags: always
     apt:
-      upgrade: dist
       update_cache: yes
+    changed_when: false
     when: ansible_distribution == "Ubuntu"
 
 - hosts: all
