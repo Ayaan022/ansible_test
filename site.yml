@@ -45,7 +45,7 @@
   - name: copy default html file for site
     tags: apache,apache2,httpd
     copy:
-      src: default_site.yml
+      src: default_site.yml 
       dest: /var/www/html/index.html
       owner: root
       group: root
