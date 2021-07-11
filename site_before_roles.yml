@@ -1,36 +1,26 @@
 ---
- 
+
 - hosts: all
   become: true
   pre_tasks:
 
-  - name: updated repository index (CentOS)
+  - name: install updates (CentOS)
     tags: always
     yum:
+      update_only: yes
       update_cache: yes
-    changed_when: false
     when: ansible_distribution == "CentOS"
-
-  - name: install repository index (Ubuntu)
+  
+  - name: install updates (Ubuntu)
     tags: always
     apt:
+      upgrade: dist
       update_cache: yes
-    changed_when: false
     when: ansible_distribution == "Ubuntu"
-
-- hosts: all
-  become: true
-  tasks:
-
-  - name: create simone user
-    tags: always
-    user:
-      name: simone
-      groups: root
 
 - hosts: workstations
   become: true
-  tasks: 
+  tasks:
 
   - name: install unzip
     package:
@@ -44,23 +34,23 @@
       mode: 0755
       owner: root
       group: root
- 
+
 - hosts: web_servers
   become: true
-  tasks: 
+  tasks:
 
-  - name: install apache and php for Ubuntu servers
+  - name: install apache and php for Ubuntu Servers
     tags: apache,apache2,ubuntu
-    apt:
+    apt: 
       name:
         - apache2
         - libapache2-mod-php
       state: latest
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
- 
-  - name: install apache and php for CentOS servers
-    tags: apache,centos,httpd
+
+  - name: install apache and php for CentOS Servers
+    tags: apache,httpd,centos
     yum:
       name:
         - httpd
@@ -70,7 +60,7 @@
     when: ansible_distribution == "CentOS"
 
   - name: start httpd (CentOS)
-    tags: apache,centos,httpd
+    tags: httpd,apache,centos
     service:
       name: httpd
       state: started
@@ -91,12 +81,12 @@
     service:
       name: httpd
       state: restarted
-    when: httpd.changed  
+    when: httpd.changed
 
   - name: copy default html file for site
-    tags: apache,apache2, httpd
+    tags: apache,apache2,httpd
     copy:
-      src: default_site.html
+      src: default_site.yml 
       dest: /var/www/html/index.html
       owner: root
       group: root
@@ -106,26 +96,25 @@
   become: true
   tasks:
 
-  - name: install mariadb package (CentOS)
+  - name: install mariadb pacakge (CentOS)
     tags: centos,db,mariadb
     yum:
       name: mariadb
       state: latest
     when: ansible_distribution == "CentOS"
 
-  - name: installe mariadb package (Ubuntu)
+  - name: install mariadb package (Ubuntu)
     tags: ubuntu,db,mariadb
     apt:
-      name: mariadb
+      name: mariadb-server
       state: latest
-    when: ansible_distribution == "Ubuntu" 
+    when: ansible_distribution == "Ubuntu"
 
 - hosts: file_servers
   become: true
-  tasks:
+  tasks: 
 
   - name: install samba package
-    tags: samba
-    package:
+    package: 
       name: samba
       state: latest
