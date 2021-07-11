@@ -1,8 +1,3 @@
 # ansible_test
 
-Test
-wow
-Hello
-your so cool
-
-
+Hello, My Name is Ayaan! Welcome to my Ansible Project!
