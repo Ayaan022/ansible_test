@@ -1,12 +1,20 @@
 [web_servers]
-44.194.210.63 ansible_connect=ssh ansible_user=ubuntu
-54.89.65.96 ansible_connect=ssh ansible_user=centos
+44.194.210.63 
+54.89.65.96
 
 [db_servers]
-52.204.83.44 ansible_connect=ssh ansible_user=ubuntu
+52.204.83.44 
 
 [file_servers]
-54.158.180.204 ansible_connect=ssh ansible_user=ubuntu
+54.158.180.204 
 
 [workstations]
-54.158.180.204 ansible_connect=ssh ansible_user=ubuntu
+54.158.180.204 
+
+[centos_servers]
+54.89.65.96
+
+[ubuntu_servers]
+54.158.180.204
+44.194.210.63
+52.204.83.44
