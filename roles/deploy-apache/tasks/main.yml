@@ -1,0 +1,41 @@
+- name: install apache and php for Ubuntu Servers
+  package: 
+    name:
+      - "{{ apache_package_name }}"
+      - "{{ php_package_name }}"
+    state: latest
+
+- name: start and enable apache service
+  service:
+    name: "{{ apache_service }}"
+    state: started
+    enabled: yes
+
+- name: change e-mail address for admin (CentOS)
+  copy:
+    src: centos_httpd.conf
+    dest: /etc/httpd/conf/httpd.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "CentOS"
+  notify: restart_apache
+
+- name: change e-mail address for admin (Ubuntu)
+  copy:
+    src: ubuntu_sites_avail_default.conf
+    dest: /etc/apache2/sites-available/000-default.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "Ubuntu"
+  notify: restart_apache
+
+- name: copy default html file for site
+  copy:
+    src: index.html
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_apache
